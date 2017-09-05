@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>FireBase</title>
+</head>
+<body>
+ <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+
+
+
+<script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
+
+
+
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBPH47GtgONAue860UQj9sxRxK3LnvoYds",
+    authDomain: "first-project-923d4.firebaseapp.com",
+    databaseURL: "https://first-project-923d4.firebaseio.com",
+    projectId: "first-project-923d4",
+    storageBucket: "first-project-923d4.appspot.com",
+    messagingSenderId: "357573351493"
+  };
+  	firebase.initializeApp(config);
+
+
+
+
+
+
+
+  var db = firebase.database();
+  
+  //db.ref("/").set("Root Data");
+  db.ref("/level1").set("My name is Sandra");
+  db.ref("/level2").set({'a':23, 'b' :34});
+
+
+  db.ref().on("/level1").on('value', function(dbValue)
+  {
+  	alert("changed");
+  });
+
+
+  var a=1
+  document.onkeyup = function(){
+  	db.ref('/level2').set(a);
+  	a++;
+  }
+
+ //db.ref().on("value", function (argument such as dbValue){
+
+ 	//})
+
+//db.rer("/level 3").on("value" function (dbValue){
+
+//})
+
+</script>
+
+
+
+</body>
+</html>

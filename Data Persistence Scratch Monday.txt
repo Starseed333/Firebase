@@ -1,0 +1,32 @@
+Data Persistence (not losing it):
+
+Client Side Storage: at 
+browser/user computer
+- local username/pwd if you trust
+- pictures
+- what is in my CART shopping
+
+
+
+Server Side Storage: at
+a central server
+- email addresses that identifies their account
+- Any app related information that even others may need
+- if you need to access from anywhere in the world
+
+
+
+
+WHAT IS THE OPPOSITE OF JSON.Stringify?
+JSON.parse();
+
+BREAK TILL - 8.27pm 
+
+
+Cookies:
+- are "strings" stored = 1 LONG STRING
+- for "specific DOMAINs"
+- format is "key=value;key2=value2;.."
+- also client side storage
+- No easy inbuilt code to process them
+- but boiler plate easily available online
