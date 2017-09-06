@@ -36,48 +36,76 @@ var highBidder = initialBidder;
 
 // At the initial load and subsequent value changes, get a snapshot of the local data.
 // This function allows you to update your page in real-time when the firebase database changes.
-database.ref().on("value", function(snapshot) {
+// database.ref().on("value", function(snapshot) {
 
-  // If Firebase has a highPrice and highBidder stored (first case)
-  if (snapshot.child("highBidder").exists() && snapshot.child("highPrice").exists()) {
+//   // If Firebase has a highPrice and highBidder stored (first case)
+//   if (snapshot.child("highBidder").exists() && snapshot.child("highPrice").exists()) {
+//     highBidder = snapshot.val().highBidder;
+//     highPrice = snapshot.val().highPrice;
+//     $("#highest-bidder").html(highBidder);
+//     $("#highest-price").html(highPrice);
+//     // Set the local variables for highBidder equal to the stored values in firebase.
+//     // highPrice = ...
+//     // highBidder = ...
+//   var highPrice = initialBid;
+//   var highBidder = initialBidder;
+
+
+//     // change the HTML to reflect the newly updated local values (most recent information from firebase)
+
+
+//     // Print the local data to the console.
+
+
+//   }
+
+//   // Else Firebase doesn't have a highPrice/highBidder, so use the initial local values.
+//   else {
+
+//     $("highest-bidder").html(highBidder);
+//     $("highest-price").html(highPrice);
+//     // Change the HTML to reflect the local value in firebase
+
+
+//     // Print the local data to the console.
+
+
+//   }
+
+
+// // If any errors are experienced, log them to console.
+// }, function(errorObject) {
+//   console.log("The read failed: " + errorObject.code);
+// });
+
+
+
+//FIREBASE METHOD CHILD = IT LOOKS THROUGH THE SNAPSHOT FOR A CHILD OF A SPECIFIC TYPE 
+//FIREBASE METHOD EXISTS = CHECKS WETHER OR NOT THAT CHILD EXISTS WITHIN THE DATABASE
+//THE CODE BELOW ALLOWS US TO RECEIVE DATA FROM THE SERVER!! THIS IS A LISTENER!!
+
+database.ref().on("value", function(snapshot){
+  if(snapshot.child("highBidder").exists() && snapshot.child("highPrice").exists()){
     highBidder = snapshot.val().highBidder;
     highPrice = snapshot.val().highPrice;
+    //SET THE LOCAL VARIABLES TO EQUAL TO THE DATABASE VARIABLES 
+    //AFTER YOU SET THEM PRINT THEM TO THE SCREEN WITH JQUERY
     $("#highest-bidder").html(highBidder);
-    $("#highest-price").html(highPrice);
-    // Set the local variables for highBidder equal to the stored values in firebase.
-    // highPrice = ...
-    // highBidder = ...
-  var highPrice = initialBid;
-  var highBidder = initialBidder;
-
-
-    // change the HTML to reflect the newly updated local values (most recent information from firebase)
-
-
-    // Print the local data to the console.
-
-
+    $("#highest-price").html("$" +highPrice);
+  }else{
+    $("#highest-bidder").html(highBidder);
+    $("#highest-price").html("$" +highPrice);
   }
-
-  // Else Firebase doesn't have a highPrice/highBidder, so use the initial local values.
-  else {
-
-    $("highest-bidder").html(highBidder);
-    $("highest-price").html(highPrice);
-    // Change the HTML to reflect the local value in firebase
+})
 
 
-    // Print the local data to the console.
 
 
-  }
 
 
-// If any errors are experienced, log them to console.
-}, function(errorObject) {
-  console.log("The read failed: " + errorObject.code);
-});
 
+
+//THE CODE BELOW IS THE ABILITY TO COMPARE PRICES ON THIS JQUERY ON CLICK EVENT!!
 // --------------------------------------------------------------
 
 // Whenever a user clicks the submit-bid button
@@ -86,9 +114,11 @@ $("#submit-bid").on("click", function(event) {
   event.preventDefault();
 
   var bidderName = $("#bidder-name").val().trim();
-  var bidderPrice = parseInt$("#bidder-price").val().trim();
+  var bidderPrice = $("#bidder-price").val().trim();
 
-
+  console.log(bidderName);
+  console.log(bidderPrice);
+ //return false;
 
   // Get the input values
 
@@ -98,6 +128,11 @@ $("#submit-bid").on("click", function(event) {
 
     // Alert
     alert("You are now the highest bidder.");
+
+    database.ref().set({
+      highBidder:bidderName,
+      highPrice:bidderPrice
+    });
 
     // Save the new price in Firebase
 
@@ -110,11 +145,9 @@ $("#submit-bid").on("click", function(event) {
 
     // Change the HTML to reflect the new high price and bidder
 
-  }
-
-  else {
+  } else {
     // Alert
     alert("Sorry that bid is too low. Try again.");
   }
-
+  return false;
 });
