@@ -2,10 +2,12 @@
 <html>
 <head>
 	<title>FireBase</title>
+
 </head>
 <body>
  <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
 
+<script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
 
 
 <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
@@ -33,21 +35,27 @@
   var db = firebase.database();
   
   //db.ref("/").set("Root Data");
-  db.ref("/level1").set("My name is Sandra");
+  db.ref("/level1").set("My name is Sandra, say hello");
   db.ref("/level2").set({'a':23, 'b' :34});
 
+  db.ref('/level3/class/cd').set(45);
 
-  db.ref().on("/level1").on('value', function(dbValue)
-  {
-  	alert("changed");
-  });
+// myRef.push(91);
 
 
-  var a=1
-  document.onkeyup = function(){
-  	db.ref('/level2').set(a);
-  	a++;
-  }
+
+
+  // db.ref().on("/level1").on('value', function(dbValue)
+  // {
+  // 	alert("changed");
+  // });
+
+
+  // var a = 1
+  // document.onkeyup = function(){
+  // 	db.ref('/level2').set(a);
+  // 	a++;
+  // }
 
  //db.ref().on("value", function (argument such as dbValue){
 
